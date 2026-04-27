@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Graph</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 30px;
+            color: #22c55e;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        canvas {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📊 Student Performance</h1>
+
+<div class="container">
+    <canvas id="chart"></canvas>
+
+    <br>
+    <a href="/view">⬅ Back to Students</a>
+</div>
+
+<script>
+    const names = JSON.parse('{{ names | tojson | safe }}');
+    const marks = JSON.parse('{{ marks | tojson | safe }}');
+
+    const ctx = document.getElementById("chart");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: names,
+            datasets: [{
+                label: "Marks",
+                data: marks,
+                backgroundColor: "#22c55e"
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
